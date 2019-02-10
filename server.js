@@ -25,7 +25,11 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //Mongo DB connection
-mongoose.connect("mongodb://localhost/yahoo-news", { useNewUrlParser: true });
+mongoose.connect(
+    process.env.MONGODB_URI ||
+    "mongodb://user:password1@ds129085.mlab.com:29085/heroku_xpll97dg",{useMongoClient: true}
+// mongoose.connect("mongodb://localhost/yahoo-news", { useNewUrlParser: true });
+);
 
 // Routes
 
