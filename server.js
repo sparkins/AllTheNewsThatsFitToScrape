@@ -10,7 +10,7 @@ var axios = require("axios");
 // require models for moongoose db structure
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 var app = express();
 
@@ -28,6 +28,10 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/yahoo-news", { useNewUrlParser: true });
 
 // Routes
+
+app.get("/", function(req, res) {
+    res.json(path.join(__dirname, "/index.html"));
+  });  
 
 //A GET route for scraping the yahoo site
 app.get("/scrape", function (req, res) {
