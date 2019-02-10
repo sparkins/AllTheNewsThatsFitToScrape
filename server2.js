@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //Mongo DB connection
-mongoose.connect("mongodb://localhost/yahoo-news", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/myBookStore", { useNewUrlParser: true });
 
 // Routes
 
@@ -33,27 +33,29 @@ mongoose.connect("mongodb://localhost/yahoo-news", { useNewUrlParser: true });
 app.get("/scrape", function (req, res) {
 
     // site to scrape articles
-    axios.get("https://www.yahoo.com/news/").then(function (response) {
+    axios.get("http://books.toscrape.com/").then(function (response) {
+    //axios.get("https://www.stats.nba.com").then(function (response) {
+    // axios.get("https://www.premierleague.com/news").then(function (response) {
 
         // Load the HTML into cheerio and save it to a variable
         var $ = cheerio.load(response.data);
         // console.log(response.data)
 
         // Grab every h3 on the page.
-        $("div h3").each(function (i, element) {
+        //$("category-table_text td").each(function (i, element) {
+         $("article h3").each(function (i, element) {
 
             // An empty array to save the data that we'll scrape
             var result = {};
-            //console.log ("element: ",element)
-
+            // console.log ("element: ",element)
             result.title = $(this)
                 .children("a")
-                .text();
+                .attr("title");            
             result.link = $(this)
                 .children("a")
                 .attr("href");
 
-            console.log("Result: ", result)
+            console.log ("Result: ",result)
 
             // Create a new Article using the `result` object built from scraping
             db.Article.create(result)
