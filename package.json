@@ -22,7 +22,7 @@
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
-    "handlebars": "^4.1.2",
+    "handlebars": "^4.5.3",
     "mongojs": "^2.6.0",
     "mongoose": "^5.4.10",
     "morgan": "^1.9.1"
